@@ -828,44 +828,119 @@ Private IP를 사용하는 컴퓨터가 외부 인터넷에 접속하도록 함.
         사용자1의 설정은 사용자2, 3에 영향을 미치지 않음.
         - 시스템 변수: 사용자 구분없이 적용됨.
 
+*[프로그램? 순서대로 실행함으로써 일련의 기능을 수행하는 것]*
+
+
+- 제어문 (조건문, 반복문)
+
+```python
+user_pwd = input('password?')
+if user_pwd == '111111':
+    print('Hello master')
+else:
+    print('Who are you?')
+```
+
 - Live Python 문제 해결하기
     - python 경로가 다른 것으로 보임.
     - six 라는 모듈을 찾을 수 없음.
     - pip로 다운 받았으나, site-packages라는 경로에 저장된 six를 찾지 못하는 것을 보임.
     - https://www.bangseongbeom.com/sys-path-pythonpath.html 파이썬이 패키지를 참조하는 경로 관련
+    - 오류에 제시된 경로의 `six.py` 파일을 제거 혹은 대체하는 것으로 해결! *[velog에 업로드]*
+
+- Container (컨테이너)
+    - list
+        - `del s[2]`
+        - `s.append("egoing")`
+    - string: 문자열
+        - 문자열도 컨테이너
+    - dictionary: 사전
+        - key: value 로 구성 
+        - `{'name':'egoing', 'address':'seoul', 'job':'programmer'}`
+    - set: 집합
+        - 중복을 허용하지 않음.
+
+- loop 반복문
+    - `for` statement
+    - `while` statement
+        
+
+- query string 사용 시, 웹사이트 사용자가 정보를 마음대로 가져가거나, 전송할 수 있다. *[위험함!]*
+    - 그래서 GET 방식이 아닌, POST 방식을 사용해야 함!!!
+
+- Python application으로 웹페이지 생성, 수정, 삭제 구현
+    - 삭제 섹션을 링크를 이용해 혼자서 구현해봤음.
+        - 그러나, 링크를 사용한 삭제는 불안정한 면이 있다. => 주소창에 링크를 입력하면 해당 페이지가 지워질 수 있음. 링크를 공유하면, 누구나 삭제가 가능함. 
+    - 그래서! 링크(href='~~')가 아닌 버튼(input type='submit')으로 구현함!
+
+- CRUD: 정보 시스템의 핵심
+    - create
+    - read
+    - update
+    - delete
+
+- 함수(Function)
+    - 정리정돈의 도구다!
+    ```python
+    def function(parameter1 = argument1, parameter2 = argument2, ...):
+        ~~~
+        return output
+    ```
+
+- 리팩토링(Refactoring): 코드를 효율적으로 바꾸는 행위 (= 짧고, 가독성이 높은 코드)
+
+- 모듈(Module)
+    - `import`
+        - 현재 working directory (os.getcwd()) 확인하기!
+    - 다른 파일에서 정의한 요소들(함수 등)을 계속 사용하고 싶을 때 사용~!
+
+- 패키지(Package)
+    - 가장 큰 수납상자
+    - 일관된 여러 기능을 묶은 하나의 작은 소프트웨어
+
+- 보안(Security)
+    - 현실에선 우선순위가 뒤로 밀리는 편...
+        - 문제가 터지면 잠깐 우선순위가 높아지는... *[보안의 본질적 특성이라고 함 ㅋㅋ...]*
+
+- XSS (Cross Site Scripting)
+    - `hehe <script>alert('haha')</script>`
+    - 자바스크립트 문법을 악용해 사용자에게 피해를 주는 걸 막기 위해, 꺽쇠(<, >) 를 각각 &lt;, &gl; 로 replace!
+
+- **바퀴를 새로 만들지 말라!!!!!!!**
+    - "python html sanitizer"
+    - PyPI
+    - PIP (Python Package Manager)
+
+- API (Application Programming Interface)
+    - 프로그램을 구현하기 위해서 시간 순서대로 배치해야 할 기능들 (함수, 모듈, 패키지 같은 부품들)
+        - Application == Program == Software
+
+- 다운 받은 모듈 CGI에서 import하기
+    - 다운 받는 모듈이 저장되는 기본 경로인 `~~\site-packages`에 저장하고 싶다.  
+    - CGI로 파이썬을 실행하면서 sys.path 확인 및 타겟 경로 추가하기
+        ```
+        import sys
+        print(sys.path)
+        sys.path.append('C:\\Users\\Jin-Yong\\AppData\\Roaming\\Python\\Python312\\site-packages')
+        ```
+        - local 실행 결과와 다름을 확인
+        - Apache에서 정의된 경로를 사용하는 것으로 추정
+        - 실패: sys.path에 경로 추가가 안 된다...
+        - *[sys.path는 python 재실행 시 초기화됨~!!]*
+    - `.pth` 파일로 경로 영구적으로 추가하기
+        - Python을 설치한 폴더에서 Lib 폴더 안에 있는 site-packages 경로로 접근  
+        내 경우, `C:\Program Files\Python312\Lib\site-packages`
+        - 아무이름으로 `.pth` 파일을 만들고, (예를 들어, `mypythonpath.pth`) 그 안에 추가할 path를 적어 준다. (`C:\Users\Jin-Yong\AppData\Roaming\Python\Python312\site-packages`)        
+    - [stackoverflow 링크](https://stackoverflow.com/questions/9212547/why-gives-the-pythonpath-a-different-value-from-cgi-apache-not-similar-to-loc) *[해당 글의 'distutils' 모듈은 현재 사용할 수 없다... 2012년 글]*
+    - [한글 블로그 링크](https://pybasall.tistory.com/201)
+    - sys.path를 cgi로 출력하는 접근 방법을 생각하지 못했다.
+    - 가장 직관적으로 참조 경로를 확인할 수 있는 방법을 우선적으로 탐색하자.
+    - `.pth` 파일을 통해 영구적으로 참조 경로를 추가하는 방법을 알게 됐다.
+    - 급한 대로 (확실한 경로였던) `www` 폴더에 모듈 파일을 복붙해서 해결하긴 했는데, 근본적인 해결책이 아니라 너무 찝찝했다.
+    - 영어로 찾아야 확실히 해결의 실마리가 보인다.
+
 ***
 ***
 ***
 
 # 문서의 끝! [(목차로 이동)](#목차)
-
-Python) error: six module not found 문제 해결하기
-
-(잡다한) 내 얘기를 하기전에, 내 해결 방법을 먼저 알린다~!
-
-요약:
-- six module에 문제가 생김. => pip로 six 다운 받기
-- pip로 다운 받았는데도 작동을 안 함.
-- VScode에서 참조하는 경로가 달랐음.
-- 맞춰주니 해결!
-
-내 이야기:  
-생활코딩 WEB2 Python 강의를 수강하고 있었다.
-Python으로 웹 어플리케이션을 만드는데, 터미널로 Python 코드의 구동 결과를 확인하는 모습이 답답했다. *["석사 때 R studio 쓸 때는 코드를 한 줄씩 돌릴 수 있었는데..." 하면서 말이다.]*
-그래서 VScode의 파이썬 관련 extension을 찾아보다가, live coding이라는 것을 찾았다. 실시간으로 코드 구동 결과를 볼 수 있는 것!  
-하지만 이 extension을 사용하려다가, 문제가 생겼다.  
-다음과 같은 문제가 생긴 것이다.  
-
-문제를 해결하던 중, 가장 유명한 python이라는 extension을 설치하게 됐다.  
-코드를 한 줄씩 터미널에 돌리는 기능을 지원하고, 
-
-not found 관련 오류를 해결할 때는 **반드시** 프로그램이 참조하는 경로에 파일이 있는지를 먼저 확인하자!  
-누군가에게는 아주 기본적인 내용일테지만, 문제 해결을 위한 논리적 사고의 출발점이라는 기념비를 세운다.  
-
-이 글은 내 첫 velog 글이다. 개발 블로그를 써봐야 겠다고 생각은 해왔다. 하지만 내가 배운 단순 지식을 포스팅하기엔 이에 관해 설명하는 (다른 훌륭하신 분들의) 자료가 너무나도 많았다.  
-velog를 통해 나를 표현하고 남들에게 도움이 되기 위해서는,  
-다들 아는 것을 시험 보듯이 줄줄 설명하기 보다는,  
-내가 문제를 해결하는 과정을 보여주는 게 맞다고 생각했다.  
-지금은 서툴더라도 앞으로 더 깔끔하게 문제를 해결하는 모습을 드리겠습니다~!
-
-
