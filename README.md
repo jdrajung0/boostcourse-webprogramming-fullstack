@@ -7,6 +7,7 @@
     - [마크다운 (Markdown)](#마크다운-markdown-목차로-이동)
     - [Web개발의 이해](#web개발의-이해-목차로-이동)
     - [Python으로 웹서버 운영하기](#python으로-웹서버-운영하기-목차로-이동)
+    - [Datebase](#database-목차로-이동)
 ***
 
 # 🖥️ 프로젝트 소개 [(목차로 이동)](#목차)
@@ -938,6 +939,301 @@ else:
     - `.pth` 파일을 통해 영구적으로 참조 경로를 추가하는 방법을 알게 됐다.
     - 급한 대로 (확실한 경로였던) `www` 폴더에 모듈 파일을 복붙해서 해결하긴 했는데, 근본적인 해결책이 아니라 너무 찝찝했다.
     - 영어로 찾아야 확실히 해결의 실마리가 보인다.
+
+- 수업을 마치며
+    - CGI => 요즘은 FastCGI, WSGI
+    - Web framework
+        - 웹개발에 공통적으로 필요한 작업을 쉽게 진행할 수 있게 하는 도구
+        - Ranking: Django, Flask 등
+    - Database
+        - file의 데이터 관리 기능을 극대화한 소프트웨어
+    - Crawling
+        - web의 정보를 긁어 모으는 기능
+        - web page를 download하여 parse(분석)하는 기술
+            - download: urllib
+            - parse: Beautiful soup
+    - gibhub.com => Trending
+        - awesome-python
+
+
+## Database [(목차로 이동)](#목차)
+
+### DATABASE1 입문(생활코딩)
+
+- database란?
+    - file이 가진 한계를 극복하기 위해 고안된 전문화된 소프트웨어
+    - 데이터를 안전하고, 편리하고, 빠르게 보관하고 사용할 수 있다.
+    - MySQL, Oracle, SQL Server, PostgreSQL, MongoDB, Cassandra 등...
+
+- 데이터베이스의 본질 (CRUD)
+    - input과 output (입력과 출력)
+    - input
+        - Create
+        - Update
+        - Delete
+    - output
+        - Read
+    - *[더 중요한 건 Create와 Read. Update와 Delete는 구현되지 않을 수 있음.]*
+
+- File VS Spreadsheet VS Database
+    - Spreadsheet (일종의 데이터베이스라고 볼 수도 있음)
+        - Microsoft Excel
+        - Google Spreadsheet
+        - OpenOffice (=무료)
+    - 구조적으로 데이터를 저장할수록 가공이 용이해진다!
+    - Database의 강점은 자동화
+        - 사람없이도 CRUD가 가능
+
+- Database Ranking
+    - Oracle, MySQL, SQL server ...
+        - 대세는 Relational DBMS (관계형 데이터베이스)
+    - Oracle
+        - 데이터베이스 시장의 전통 강자
+        - 자금력 있는 관공서나 큰 기업. 겁나 비쌈.
+    - MySQL
+        - 무료, 오픈 소스
+        - 데이터 신뢰성이 그렇게까지 중요하지 않은 대부분의 경우에 추천. 초심자용.
+    - MongoDB
+        - 관계형 DB가 아닌! DB
+        - 2010년부터 NoSQL (Not only SQL) 이라는 흐름이 나타남.
+
+
+### DATABASE2 MySQL (생활코딩)
+
+- Database
+    - 1960년부터 파일의 한계를 극복하기 위한 시도가 본격적으로 시작됨.
+    - 1970년, 에드거 프랭크 테드 커드(Edgar Frank "Ted" Codd)는 IBM에서 Relational database를 고안함.
+    - 1994년, 스웨덴에서 개발되기 시작한 MySQL. 오픈 소스는 준수한 관계형 DB
+
+- MySQL 설치하고 실행하기
+    - 'mysql community addition download' 검색 후 설치 => ...
+    - 혹은 이미 설치된 'WAMP64'에 포함되어 있는 mysql 실행하기
+        - WAMP64 안의 mysql 폴더 안으로 이동해서 mysql.exe 찾기  
+        `C:\wamp64\bin\mysql\mysql8.3.0\bin`
+        - Terminal에서 해당 경로로 이동한 후, mysql 실행 => 패스워드 입력 
+
+- MySQL의 구조
+    - 표 (table)
+    - 데이터베이스(혹은 스키마, schema): 서로 연관된 table들을 그룹핑 한 것. *[file들을 담는 폴더에 비유]*  
+    *[MySQL에서는 DB == Schema]*
+    - 데이터베이스 서버: schema들을 저장한 게 데이터베이스 서버! *[MySQL은 정확히는 데이터베이스 서버]*
+    ![alt text](image-7.png)
+
+- MySQL 서버 접속
+    - DB에는 자체 보안 시스템이 존재하며, 사용자별 접근 권한을 차등하여 부여할 수 있음. 
+    - `>mysql -uroot -p -hlocalhost`  
+        - `-u`: user
+        - `root`: 사용자 이름. root는 관리자 *[중요한 시스템이라면 관리자 계정으로 DB를 관리하는 건 위험함!!]* 
+        - `-p`: password
+        - `-hlocalhost`: 접속할 MySQL 서버 지정
+
+- MySQL syntax
+    - SQL 공식 문법에서 대괄호[]는 생략 가능하다는 뜻임. *[함수의 default 값처럼?]*
+    - 구문 내에서 `FROM`, `WHERE`, `GROUP BY`, `ORDER BY` 와 같은 '절'은 정해진 순서대로 사용해야 한다.
+    - `CREATE DATABASE DB이름`: DB 생성
+    - `DROP DATABASE DB이름`: DB 삭제 
+    - `SHOW DATABASES` 혹은 `SHOW SCHEMAS`: 존재하는 DB 리스트 출력
+    - `use DB이름`: 사용할 DB 선택
+    - `select database()`: 현재 선택된 DB 조회
+    - `DESC table이름;`: table 구조 확인
+
+- SQL (Structured Query Language)
+    - Structured (구조화): 표 형식을 통해 데이터를 정리하는 것.
+    - Query: 질의(요청) *[해줘!!]*
+    - Language: 사용자와 서버가 서로 이해할 수 있는 공통의 약속
+    - 쉬운 언어의 양대산맥: HTML, SQL
+
+- 용어 정리
+    - table (표)
+    - row (행, record): 데이터 그 자체
+    - column (열): 데이터 구조
+
+- MySQL 테이블의 생성
+    - 'Cheat Sheet' 검색
+        - 누가 잘 정리해준 것을 보면서 문제를 해결할 것!
+    - column의 데이터 타입을 지정하면서 생성하기
+        - 이름1 타입1 추가사항1,
+        - 이름2 타입2 추가사항2,
+        - ...
+
+```sql
+CREATE TABLE topic(
+    id INT(11) NOT NULL AUTO_INCREMENT, # 결과를 얼마까지 노출시킬 것인가를 지정, NULL 허용하지 않겠다
+    title VARCHAR(100) NOT NULL, # variable character, 100 글자로 제한(넘으면 잘림)
+    description TEXT NULL,
+    created DATETIME NOT NULL,
+    author VARCHAR(30) NULL,
+    profile VARCHAR(100) NULL,
+    PRIMARY KEY(id)
+);
+```
+
+```sql
+CREATE TABLE topic(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    description TEXT NULL,
+    created DATETIME NOT NULL,
+    author VARCHAR(30) NULL,
+    profile VARCHAR(100) NULL,
+    PRIMARY KEY(id)
+);
+```
+
+
+
+- SQL INSERT 구문 (Create)
+    ```
+    INSERT INTO table_name (column1, column2, column3, ...)   
+    VALUES (value1, value2, value3, ...);
+    ```
+    ```
+    INSERT INTO topic (title, description, created, author, profile)   
+    VALUES ('MySQL', 'MySQL is ...', NOW(), 'jdrajung0', 'developer in future');
+
+    INSERT INTO topic (title, description, created, author, profile)   
+    VALUES ('ORACLE', 'ORACLE is ...', NOW(), 'jdrajung0', 'developer in future');
+
+    INSERT INTO topic (title, description, created, author, profile)   
+    VALUES ('SQL Server', 'SQL Server is ...', NOW(), 'duru', 'data administrator');
+
+    INSERT INTO topic (title, description, created, author, profile)   
+    VALUES ('PostgreSQL', 'PostgreSQL is ...', NOW(), 'taeho', 'data scientist');
+
+    INSERT INTO topic (title, description, created, author, profile)   
+    VALUES ('MongoDB', 'MongoDB is ...', NOW(), 'jdrajung0', 'developer in future');
+
+    ```
+
+- SQL SELECT 구문 (Read)
+    - 실력에 따라 활용도가 천차만별인 핵심 구문
+    ```
+    SELECT column1, column2, ...
+    FROM table_name;
+    ```
+    ```
+    SELECT * FROM topic;
+    SELECT * FROM topic WHERE author='jdrajung0';
+    SELECT * FROM topic WHERE author='jdrajung0' ORDER BY id DESC LIMIT 5;
+    ```
+
+- SQL UPDATE 구문 (Update)
+    ```
+    UPDATE table_name
+    SET column1 = value1, column2 = value2, ...
+    WHERE condition;
+    ```
+    ```
+    UPDATE topic
+    SET description = 'ORACLE is ......'
+    WHERE title = 'ORACLE';
+    ```
+- SQL DELETE 구문 (Delete)
+    ```
+    DELETE FROM table_name WHERE condition;
+    ```
+    ```
+    DELETE FROM topic WHERE id=2;
+    DELETE FROM topic WHERE title="SQL Server";
+    ```
+
+- DB 기술을 혁신과 본질로 나누어 생각해보세요
+    - 본질(Essence): Database (CRUD)
+    - 혁신(Innovation): Relational
+
+- 관계형 데이터베이스의 필요성
+    - 데이터가 중복된다면, 이는 개선의 가능성이 있다는 증거가 된다!!
+    - 관계형 구조를 통해 데이터 중복을 줄여 저장공간을 효율적으로 사용하는 혁.신.
+
+- 테이블 분리하기 (기초 데이터 입력)
+    ```
+    --
+    -- Table structure for table `author`
+    --
+    
+    
+    CREATE TABLE `author` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(20) NOT NULL,
+    `profile` varchar(200) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    );
+    
+    --
+    -- Dumping data for table `author`
+    --
+    
+    INSERT INTO `author` VALUES (1,'egoing','developer');
+    INSERT INTO `author` VALUES (2,'duru','database administrator');
+    INSERT INTO `author` VALUES (3,'taeho','data scientist, developer');
+    
+    --
+    -- Table structure for table `topic`
+    --
+    
+    CREATE TABLE `topic` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `title` varchar(30) NOT NULL,
+    `description` text,
+    `created` datetime NOT NULL,
+    `author_id` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    );
+    
+    --
+    -- Dumping data for table `topic`
+    --
+    
+    INSERT INTO `topic` VALUES (1,'MySQL','MySQL is...','2018-01-01 12:10:11',1);
+    INSERT INTO `topic` VALUES (2,'Oracle','Oracle is ...','2018-01-03 13:01:10',1);
+    INSERT INTO `topic` VALUES (3,'SQL Server','SQL Server is ...','2018-01-20 11:01:10',2);
+    INSERT INTO `topic` VALUES (4,'PostgreSQL','PostgreSQL is ...','2018-01-23 01:03:03',3);
+    INSERT INTO `topic` VALUES (5,'MongoDB','MongoDB is ...','2018-01-30 12:31:03',1);    
+    ```
+
+- `JOIN`
+    ```
+    SELECT topic.id AS topic_id, title, description, created, name, profile FROM topic LEFT JOIN author ON topic.author_id = author.id ORDER BY profile DESC;
+    ```
+
+- 공부는 이해하는 게 아니라 익숙해지는 것!
+
+- DB client
+    - MySQL monitor: MySQL server와 함께 설치되는 client 프로그램.
+        - 명령어 기반 프로그램 (CLI: Command Line Interface)
+    - 또 다른 DB client인 Workbench!
+        - GUI (Graphical User Interface) 제공 *[대부분의 서버용 컴퓨터들은 자원을 최대한 효율적으로 사용하기 위해 GUI를 사용하지 않는다... ㅠ SQL에 익숙해져야 할 듯!]*
+    - 결국, client가 server와 소통하는 방식은 SQL 구문을 전달하는 것. Web application 제작에 있어서 이 부분이 핵심적으로 작용한다.  
+    JAVA, Python 같은 프로그래밍 언어로 SQL을 통해 DB server와 소통할 수 있음.
+
+- `127.0.0.1` = localhost 혹은 루프백(loopback)
+    - 기술적으로는 `127.0.0.X`인 모든 주소가 루프백이나, 일부 운영체제에서는 `127.0.0.1`만 루프백으로 인식함.
+
+- index
+    - "정리를 하지 않으면 넣을 때 편하고, 정리를 하면 꺼낼 때 편하다."
+    - 자주 검색하게 되는 컬럼을 미리, 따로 정리하여 관리하는 기능 => 성능 향상!
+
+- modeling
+    - 테이블의 효율적인 설계 (중복없이, 좋은 성능으로)
+    - 정규화, 비정규화, 역정규화...
+
+- backup
+    - "하드웨어는 언제 고장날 지 확실할 수 없지만, 언젠가 고장난다는 건 확실하다."
+    - 데이터를 두 개 이상의 하드웨어에 저장하는 것은 기본. 하드웨어를 다른 지역, 다른 나라, 다른 행성(?)에 놓을 수록 안정성은 급격히 올라간다.
+    - 키워드: mysqldump, binary log
+
+- cloud computing
+    - 다른 회사 인프라의 컴퓨터를 임대해서 사용하는 것.
+    - 원격 제어를 통해서 보이지 않는 컴퓨터를 다루게 됨.
+    - MySQL 같은 DB를 서비스화시켜서 몇 번의 클릭을 원격 DB 서버를 구축할 수 있음.
+    - 백업, 성능 측면에서 많은 수고를 덜어주는 서비스.
+    - 키워드: AWS RDS, Google Cloud SQL for MySQL, AZURE Database for MySQL
+
+- Programming
+    - DB는 정보 시스템의 부품으로 쓰임. 웹 사이트, 앱, 분석결과 등에 사용됨.
+    - 프로그래밍 언어로 DB 서버에 SQL을 던져 줄 수 있는 방법을 배워라!
+    - 키워드: Python mysql api, PHP mysql api, Java mysql api
+
 
 ***
 ***
