@@ -5,6 +5,7 @@
 - [프로젝트 소개](#🖥️-프로젝트-소개)
 - [학습일지](#학습일지-목차로-이동)
     - [마크다운 (Markdown)](#마크다운-markdown-목차로-이동)
+    - [HTML과 CSS](#html과-css-목차로-이동)
     - [Web개발의 이해](#web개발의-이해-목차로-이동)
     - [Python으로 웹서버 운영하기](#python으로-웹서버-운영하기-목차로-이동)
     - [Datebase](#database-목차로-이동)
@@ -223,6 +224,83 @@ ex)
 
 ***
 
+
+## HTML과 CSS [(목차로 이동)](#목차)
+
+- HTML과 CSS 활용에 관한 내용을 필요할 때 마다 하나씩 추가해 나가는 문서
+
+### HTML (Hyper Text Markup Language)
+
+- HTML syntax
+    - Tag (</>)
+        - element: 태그를 사용하여 만든 HTML 구성 요소. = 시작태그 ~ 내용 ~ 종료태그
+    - Attribute (속성): 태그에 추가적인 정보를 부여하는 기능
+    - css와 연결: `<link ref='stylesheet' href='./css/style.css>`
+
+### CSS (Cascading Style Sheet)
+
+- CSS syntax
+    - Selector (선택자): 특정 태그를 지정
+    - Declaration (선언): 선택자가 지정한 태그에 대한 효과 선언
+    - Property:Value (속성:값): 어떤 속성을 어떤 값으로 지정해 효과를 부여
+
+- Selectors
+    - 전체 선택자
+        - `* { style properties }`
+    - 태그 선택자
+        - `tag { style properties }`
+    - [특성 선택자](https://developer.mozilla.org/ko/docs/Web/CSS/Attribute_selectors)
+        - `tag[attribute=value] { style properties }`
+        - 조건에 맞는 tag에만 style 적용
+    - 클래스 선택자
+        - `.class_name { style properties }`
+        - same as `[class~=class_name] { style properties }`
+            - class attribute 사용 시 `<tag class="class_name">`
+    - ID 선택자
+        - `#id_value { style properties }`
+        - same as `[id=id_value] { style properties }`
+
+- 박스모델과 그리드 (Box model, grid)
+    - element가 차지하는 공간을 시각화하여 레이아웃 배치
+        - block level element: 화면 전체를 영역으로 사용하는 element
+        - inline element: 화면 일부(element 주변)을 영역으로 사용하는 element
+    ```
+    h1 {
+        border:5px solid red;
+        padding:20px;
+        margin:20px;
+        display:block;
+        width:100px;
+    }
+    ```
+
+    - 그리드는 parent tag로 감싼 child element의 영역을 나누는 방식으로 작용한다.
+
+    ```
+    #grid {
+        border:5px solid pink;
+        display:grid;
+        grid-template-columns: 150px 1fr;
+    }
+
+    div{
+        border:5px solid gray;
+    }
+
+    # 본문
+    <div id="grid">
+      <div>GRID 1</div>
+      <div>GRID 2</div>
+    </div>
+    ```
+
+- 반응형 디자인
+    - 사용자 조작에 반응하는 디자인
+        - 화면 크기에 따라 특정 태그가 동작하게 하는 기능
+    - 미디어 쿼리로 구현
+        - @media()
+
+***
 
 ## Web개발의 이해 [(목차로 이동)](#목차)
 
@@ -1233,6 +1311,22 @@ CREATE TABLE topic(
     - DB는 정보 시스템의 부품으로 쓰임. 웹 사이트, 앱, 분석결과 등에 사용됨.
     - 프로그래밍 언어로 DB 서버에 SQL을 던져 줄 수 있는 방법을 배워라!
     - 키워드: Python mysql api, PHP mysql api, Java mysql api
+
+
+### 관계형 데이터 모델링 (생활코딩)
+
+- Modeling
+    - **목적**을 가지고, **진짜**를, **모방**한 것
+    - 현실의 복잡성을 어떻게 재구조화하여 데이터베이스에 담을 수 있을까?
+
+- 데이터 모델링의 순서 
+    - 업무파악: 하려고 하는 일이 뭐냐? 의뢰인의 목적을 파악.
+    - 개념적 데이터 모델링: 어떤 개념이 있고, 각 개념이 어떻게 상호작용하는가? 다이어그램 그리기
+    - 논리적 데이터 모델링: 정리한 개념을 관계형 DB 패러다임에 맞는 표로 전환.
+    - 물리적 데이터 모델링: 어떤 DB 제품을 사용할 것인가? 해당 제품에 최적화된 코드를 작성해서 실제 표를 생성.
+
+
+
 
 
 ***
