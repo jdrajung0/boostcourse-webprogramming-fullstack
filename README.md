@@ -1437,6 +1437,71 @@ CREATE TABLE topic(
 이게 지금 내 생각이다. 다른 얘기를 들으며 왔다갔다하는 것보다, 지금 내 판단을 쭉 밀고 나가는 게 필요하다. 마지막으로 두 언어를 배우고 나면, 이제 생활코딩으로부터 잠시 독립한 뒤 나만의 프로젝트를 만들어 가보자. 재밌겠다!
 
 
+## JAVA [(목차로 이동)](#목차)
+
+- Java 설치
+    - JDK (Java Development Kit): Java 개발자 도구 모음. Base libraries, JVM (Java Virtual Machine), 여러 tool과 API 등을 포함.
+    - Eclipse (이클립스): 자바 개발환경을 구축하는 IDE (Integrated Development Environment) 프로그램.
+    - JRE (Java Runtime Environment): 설치한 자바 프로그램을 의미. Virtual machine, runtime 이라고도 부름.
+
+- 프로젝트 생성
+    - src (source): 소스 파일을 담는 폴더
+        - 주황색 네모 모양이 소스 파일이라는 의미
+    - bin (binary): 실행 파일을 담는 폴더
+    - src 폴더의 .java 파일의 소스 코드를 컴파일하면 bin 폴더의 .class의 실행 파일이 저장된다.
+    - 프로젝트의 properties (Alt + Enter)에서 Java Build Path 메뉴로 들어가면 src 폴더와 bin 폴더를 직접 지정할 수 있다.
+
+- Error: JRE System Library Unbound
+    - default 설정으로 이전 버전의 library가 프로젝트에 할당되어 library 이름 뒤에 (unbound)라는 내용이 붙었다.
+    - 해당 library를 지우고 최신 버전의 library를 Add 했으나 오류가 해결되지 않았다.
+    - 프로젝트를 완전히 지우고 다시 만들면서 library 설정을 최신 버전으로 바꾸니 문제가 해결됐다.
+
+- 프로그래밍의 인과관계
+    - 원인: source, code, language *[다른 관점에서 모두 같은 대상을 가르킴]*
+    - 결과: application, program *[다른 관점에서 모두 같은 대상을 가르킴]*
+
+- Java의 동작원리
+    - Java Source code (.java)
+        - => Compile =>
+    - Java Application (.class)
+        - => Run =>
+    - JVM (Java Virtual Machine)
+        - => Run =>
+    - computer
+
+- 프로그래밍 언어 공부
+    - 어떤 데이터 타입이 있는가?
+    - 그 데이터 타입은 어떤 연산 방법을 사용하는가?
+
+- Java Syntax
+    - comment (주석): `// comment`
+    - 따옴표
+        - 큰 따옴표는 `String` (문자열)
+        - 작은 따옴표는 `Character` (문자)
+    - 문자열 줄바꿈: `\n` (new line)
+    - Escape: `\"`
+
+- 작심삼일 공학
+    - 음... 오늘은 참 공부를 하기가 싫다. 써먹을 때가 된 걸까?
+    - 나는 Java와 Javascript가 필요하다고 생각하는데, 이 두 개만 못 배웠다.
+    - 솔직히 이걸 다 배우고 있기 보다는, 아닌가...
+    - 되게 답답하다. 뭘 좀 써볼까? 종이 메모를 많이 해야 될 것 같다. 내가 생각한 걸 그대로 구현하는 연습부터 해보자. 그냥 파이썬 사용해서 해보자. 파이썬으로 가능하면, 굳이 다른 언어를 배울 필요가 없지 않은가? 게다가, Java가 필요할 때가 올 거라고 생각한다. 급하게 생각 말자. 삽질은 뭐든 도움이 된다.
+    - Java를 쓰면 진도가 안 나갈 것 같다...
+
+- Java 웹 어플리케이션 도구: JSP와 Servlet
+    - JSP (JavaServer Pages)
+        - HTML 코드에 JAVA 코드를 넣어 동적웹페이즈를 생성하는 웹어플리케이션 도구.
+        - JSP => Servlet (서블릿) => 웹 어플리케이션 서버에서 동작하는 순서
+    - Java Servlet
+        - 웹페이지를 동적으로 생성하기 위한 서버측 프로그램.
+        - 웹 어플리케이션 서버 위에서 자바 언어를 컴파일하고 동작시키는 프로그램.
+
+- 자바 웹개발환경 구축하기
+    - IntelliJ (Community ver) 설치
+    - Tomcat 설치
+    - IntelliJ 와 Tomcat 연동하기
+        - 이게 좀 답답하다. 뭐가 문제일까?
+
 
 
 ***
